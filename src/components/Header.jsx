@@ -1,18 +1,17 @@
 import React from 'react';
 import {styles} from "/Casino/casino/src/styles"
 import logo from "./logo.png"
+import chip from "./chip.png"
 
 const Header = () => {
+  let chips = 1000;
   return (
     <header style={styles.Header}>
-      <img style={styles.Logo} src={logo}></img>
-      <nav>
-        <ul>
-          <li style={styles.Navigation}></li>
-        </ul>
-      </nav>
+      <img alt="logo" style={styles.Logo} src={logo}></img>
+      <p style={styles.ChipsAmount}>Ваши фишки: {chips}</p><img alt="chip" style={styles.Chip} src={chip}/>
     </header>
   )
 }
+
 
 export default Header;

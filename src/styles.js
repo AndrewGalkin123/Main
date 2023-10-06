@@ -2,7 +2,7 @@
 
 
 const Header = {
-  padding: "0 10px",
+  paddingLeft: "10px",
   display: "flex",
   alignItems: "center",
   backgroundColor: "#8e1c1c",
@@ -11,9 +11,19 @@ const Header = {
   height: "70px"
 }
 
-const Navigation = {
+const ChipsAmount = {
   width: "100%",
-  listStyle: "none"
+  textAlign: "right",
+  color: "white",
+  fontWeight: "bold",
+  marginRight: "5px"
+}
+
+const Chip = {
+  height: "30px",
+  width: "30px",
+  marginRight: "30px"
+
 }
 
 const Logo = { 
@@ -23,12 +33,13 @@ const Logo = {
 
 const Roulette = {
   height: "2000px",
-  backgroundColor: "black"
+  backgroundColor: "#238141"
 }
 
 export const styles = {
   Logo: Logo,
   Header: Header,
-  Navigation: Navigation,
+  ChipsAmount: ChipsAmount,
+  Chip: Chip,
   Roulette: Roulette
 }
