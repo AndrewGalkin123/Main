@@ -1,10 +1,9 @@
-import React from 'react';
-import {styles} from "/Casino/casino/src/styles"
+import React, { useState } from 'react';
+import { styles } from "/Casino/casino/src/styles"
 import logo from "./logo.png"
 import chip from "./chip.png"
 
-const Header = () => {
-  let chips = 1000;
+const Header = ({ chips = 1000}) => {
   return (
     <header style={styles.Header}>
       <img alt="logo" style={styles.Logo} src={logo}></img>
@@ -12,6 +11,5 @@ const Header = () => {
     </header>
   )
 }
-
 
 export default Header;
