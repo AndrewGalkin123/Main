@@ -23,18 +23,18 @@ const Roulette = ({ chips, onChipsChange }) => {
         const even = document.getElementById("even");
         const odd = document.getElementById("odd");
 
-        if (numberInput.value > 36) {
+        if (numberInput.value > 36 || numberInput.value < 0) {
             return alert("Такого числа нету");
         }
         let oddNumber = 0;
         let evenNumber = 0;
         if (oddRadio.checked) {
-            oddNumber = parseInt(odd.value, 10);
+            oddNumber += parseInt(odd.value, 10);
         } else if (evenRadio.checked) {
-            evenNumber = parseInt(even.value, 10);
+            evenNumber += parseInt(even.value, 10);
         }
 
-        const bid = parseInt(bidInput.value, 10) + oddNumber || evenNumber;
+        const bid = bidInput.value + oddNumber + evenNumber;
         const number = parseInt(numberInput.value, 10);
         console.log(bid)
         if (bid > chips) {
@@ -49,9 +49,9 @@ const Roulette = ({ chips, onChipsChange }) => {
             if (result === number) {
                 newChips += 36 * bid
             }
-            if (evenRadio.checked && result % 2 === 0) {
+            if (evenRadio.checked && result % 2 === 0 && evenNumber !== 0) {
                 newChips += evenNumber * 2
-            } else if (oddRadio.checked && result % 2 !== 0) {
+            } else if (oddRadio.checked && result % 2 !== 0 && oddNumber !== 0) {
                 newChips += oddNumber * 2
             }
 
