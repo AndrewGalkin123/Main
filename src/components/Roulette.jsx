@@ -26,17 +26,17 @@ const Roulette = ({ chips, onChipsChange }) => {
         if (numberInput.value > 36 || numberInput.value < 0) {
             return alert("Такого числа нету");
         }
-        let oddNumber = 0;
-        let evenNumber = 0;
+       
+        let bid =  Number(bidInput.value)
         if (oddRadio.checked) {
-            oddNumber += parseInt(odd.value, 10);
-        } else if (evenRadio.checked) {
-            evenNumber += parseInt(even.value, 10);
+            bid += Number(odd.value)
+        } else if (evenRadio.checked)  {
+            bid += Number(even.value)
         }
-
-        const bid = bidInput.value + oddNumber + evenNumber;
+       
+       
         const number = parseInt(numberInput.value, 10);
-        console.log(bid)
+     
         if (bid > chips) {
             alert("Недостаточно фишек")
         }
@@ -49,10 +49,10 @@ const Roulette = ({ chips, onChipsChange }) => {
             if (result === number) {
                 newChips += 36 * bid
             }
-            if (evenRadio.checked && result % 2 === 0 && evenNumber !== 0) {
-                newChips += evenNumber * 2
-            } else if (oddRadio.checked && result % 2 !== 0 && oddNumber !== 0) {
-                newChips += oddNumber * 2
+            if (evenRadio.checked && result % 2 === 0 && Number(even.value) !== 0) {
+                newChips += Number(even.value) * 2
+            } else if (oddRadio.checked && result % 2 !== 0 && Number(odd.value) !== 0) {
+                newChips += Number(odd.value) * 2
             }
 
             onChipsChange(newChips); // Вызываем функцию обратного вызова для обновления фишек
@@ -75,14 +75,14 @@ const Roulette = ({ chips, onChipsChange }) => {
             <br></br>
             <form>
 
-                <input type="radio" value="0" name="number" id="evenRadio" />EVEN
+                <input type="radio" name="number" id="evenRadio" />EVEN
 
-                <input id="even"></input>
+                <input type="number" id="even"></input>
                 <br></br>
                 <br></br>
-                <input type="radio" value="0" name="number" id="oddRadio" />ODD
+                <input type="radio" name="number" id="oddRadio" />ODD
 
-                <input id="odd"></input>
+                <input type="number" id="odd"></input>
             </form>
             <form>
                 <p>
