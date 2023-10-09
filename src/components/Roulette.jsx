@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { styles } from "/Casino/casino/src/styles"
+import "./Roulette.css"
 
 const Roulette = ({ chips, onChipsChange }) => {
 
@@ -22,21 +23,30 @@ const Roulette = ({ chips, onChipsChange }) => {
         const oddRadio = document.getElementById("oddRadio");
         const even = document.getElementById("even");
         const odd = document.getElementById("odd");
+        const firstHalfRadio = document.getElementById("firstHalfRadio");
+        const secondHalfRadio = document.getElementById("secondHalfRadio")
+        const firstHalf = document.getElementById("firstHalf");
+        const secondHalf = document.getElementById("secondHalf")
 
         if (numberInput.value > 36 || numberInput.value < 0) {
             return alert("Такого числа нету");
         }
-       
-        let bid =  Number(bidInput.value)
-        if (oddRadio.checked) {
+
+        let bid = Number(bidInput.value)
+        if (oddRadio.checked && Number(odd.value) > 0) {
             bid += Number(odd.value)
-        } else if (evenRadio.checked)  {
+        } else if (evenRadio.checked && Number(even.value) > 0) {
             bid += Number(even.value)
         }
-       
-       
+
+        if (firstHalfRadio.checked && Number(firstHalf.value) > 0) {
+            bid += Number(firstHalf.value)
+        } else if (secondHalfRadio.checked && Number(secondHalf.value) > 0) {
+            bid += Number(secondHalf.value)
+        }
+
         const number = parseInt(numberInput.value, 10);
-     
+
         if (bid > chips) {
             alert("Недостаточно фишек")
         }
@@ -49,10 +59,15 @@ const Roulette = ({ chips, onChipsChange }) => {
             if (result === number) {
                 newChips += 36 * bid
             }
-            if (evenRadio.checked && result % 2 === 0 && Number(even.value) !== 0) {
+            if (evenRadio.checked && result % 2 === 0 && Number(even.value) > 0) {
                 newChips += Number(even.value) * 2
-            } else if (oddRadio.checked && result % 2 !== 0 && Number(odd.value) !== 0) {
+            } else if (oddRadio.checked && result % 2 !== 0 && Number(odd.value) > 0) {
                 newChips += Number(odd.value) * 2
+            }
+            if (firstHalfRadio.checked && result >= 1 && result <= 18 && Number(firstHalf.value) > 0) {
+                newChips += Number(firstHalf.value) * 2
+            } else if (secondHalfRadio.checked && result > 18 && result <= 36 && Number(secondHalf.value) > 0) {
+                newChips += Number(secondHalf.value) * 2
             }
 
             onChipsChange(newChips); // Вызываем функцию обратного вызова для обновления фишек
@@ -64,36 +79,50 @@ const Roulette = ({ chips, onChipsChange }) => {
 
     return (
         <main style={styles.Roulette}>
+            <span className='result'>
+                Результат: {randomResult}
+            </span>
 
-            {randomResult}
-            <br></br>
-            <p>Ваше число:</p>
-            <input id="number" type="number"></input>
-            <p>Ваша ставка:</p>
-            <input id="bid" type="number"></input>
+            <form>
+                <br></br>
+                <p>Ваше число:</p>
+                <input className='input' id="number" type="number"></input>
+                <p>Ваша ставка:</p>
+                <input className='input' id="bid" type="number"></input>
+            </form>
             <br></br>
             <br></br>
             <form>
+                <div className='forms'>
+                    <input className='inputRadio' type="radio" name="number" id="evenRadio" />EVEN
 
-                <input type="radio" name="number" id="evenRadio" />EVEN
-
-                <input type="number" id="even"></input>
+                    <input className='input' type="number" id="even"></input>
+                </div>
                 <br></br>
                 <br></br>
-                <input type="radio" name="number" id="oddRadio" />ODD
+                <div className='forms'>
+                    <input className='inputRadio' type="radio" name="number" id="oddRadio" />ODD
 
-                <input type="number" id="odd"></input>
-            </form>
-            <form>
-                <p>
-                    <input type="radio" value="even" name="number1" />1-18
-                </p>
-                <p>
-                    <input type="radio" value="odd" name="number1" />19-36
-                </p>
+                    <input className='input' type="number" id="odd"></input>
+                </div>
             </form>
             <br></br>
-            <button onClick={handleClick}>Подтвердить</button>
+            <form>
+                <div className='forms'>
+                    <input className='inputRadio' type="radio" name="number" id="firstHalfRadio" />1-18
+
+                    <input className='input' type="number" id="firstHalf"></input>
+                </div>
+                <br></br>
+                <br></br>
+                <div className='forms'>
+                    <input className='inputRadio' type="radio" name="number" id="secondHalfRadio" />19-36
+
+                    <input className='input' type="number" id="secondHalf"></input>
+                </div>
+            </form>
+            <br></br>
+            <button id='roll-button' onClick={handleClick}>Крутить</button>
         </main>
     )
 }
